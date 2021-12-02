@@ -1,0 +1,23 @@
+Description: A parallel program to find the target value from a list of ints. Each process (when this was written it was tested on a 2 processor
+System) searches a portion of the array and prints whether or not it was able to find the target value.
+
+Notes:
+As I said I tested this on a 2 processor virtual machine that's why some values are hard-coded.
+This was written on a Linux VM, so be aware of any portability issues
+There is a serial part of my code involving initalization of the target value and the creation of a buffer (which has been tested to be
+distinct between processors) which is intended to hold each process's respective "chunk" of the search dataset. This serial portion also
+declares ints which are passed to MPI_Init() upon creation of the parallel environment. After this initial setup, MPI_Init is called and
+process 0 (the one which did the initialization steps) does an MPI_Scatter communication to the other processes to distribute the array chucks
+for searching. A parallel linear search is performed and if the value is found the process prints:
+"Process X was able to find [the target]" followed by a newline character otherwise the process will print:
+"Process X was unable to find [the target]. (Assume X is the processor rank.)
+
+I have made every effort to ensure this is a "parallel program", by doing a rank check as follows:
+
+if(rank == 0) {
+    //search
+} else if(rank != 0) {
+    //search
+}
+
+Please feel free to email me at jamison.ball.571@my.csun.edu if you have any questions.
