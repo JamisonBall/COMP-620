@@ -93,8 +93,8 @@ int main(int argc, char **argv) {
    				 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
    		MPI_Recv(&(matrix_c[4][0]), 16, MPI_INT, 2, SLAVE,
    				 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-   	    MPI_Recv(&(matrix_c[6][0]), 16, MPI_INT, 3, SLAVE,
-   	    		 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+   	        MPI_Recv(&(matrix_c[6][0]), 16, MPI_INT, 3, SLAVE,
+   	    		         MPI_COMM_WORLD, MPI_STATUS_IGNORE);
    	    
    	    printf("Multiply finished in: %ld clock ticks.\nResult Matrix C:\n", clock() - mpi_start); 
    	    for(int k = 0; k < 8; k++) {
