@@ -1,0 +1,26 @@
+Description: A program that multiplies 2 8 x 8 matracies and displays the answer.
+I used a matrix based on the formula A[i] = i for the first matrix and the formula
+B[j] = (j * 5) * row for the second matrix. The program runs with 4 processes and
+every program has access to matrix B and its set of rows for calculation. Process 0
+is the only process with access to matrix A and matrix C. Process A will initialize
+matrix A and then broadcast matrix B to all other processes, after this step process 0
+will partition matrix A and then Send each respective set of two rows to the other three
+processes and begin calculating rows 0 and 1 while the other processes work on 2 other rows
+of matrix C. When process 0 is done calculating it stores its result in matrix C and waits
+for the other processes to send their matrix C rows back.
+
+The other processes will send their rows by first computing using a multiply-add and then store
+their results in an output buffer. After this each process sends the output buffer back to process 0
+and process 0 stores the result at the appropriate row in matrix C.
+
+Finally the resulting matrix C and the processing time (in clock ticks) are printed. Memory is freed,
+and the program terminates.
+
+Utility functions:
+int *get_row(int**, int) gets a row of a matrix
+int *get_column(int**, int) gets a column of a matrix
+int mul_add(int*, int*) the multiply-add operation
+int init_buffer(int***, int, int) allocates contiguous memory
+int free_buffer(int***) frees the memory allocated by init_buffer
+
+Note: This program was written on a virtual machine running Ubuntu 20. Keep this in mind when grading.
